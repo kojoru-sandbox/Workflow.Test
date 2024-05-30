@@ -1,0 +1,23 @@
+name: Example Workflow Using Action.Test
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run-action-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Run Kojoru's Action.Test
+        uses: kojoru/Action.Test@v1
+        with:
+          # Specify inputs for the action, if any
+          secret: ${{ secrets.SECRET }}
