@@ -8,6 +8,7 @@ on:
   pull_request:
     branches:
       - main
+  merge_group:
 
 jobs:
   run-action-test:
@@ -18,6 +19,7 @@ jobs:
 
       - name: Run Kojoru's Action.Test
         uses: kojoru/Action.Test@v1
+        if: github.event_name == 'merge_group' || github.actor != 'dependabot[bot]'
         with:
           # Specify inputs for the action, if any
           secret: ${{ secrets.SECRET }}
