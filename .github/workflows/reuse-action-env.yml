@@ -1,4 +1,4 @@
-name: Example Workflow Using Action.Test
+name: Example Workflow Using Action.Test with env protection
 
 on:
   push:
@@ -17,7 +17,7 @@ jobs:
     environment: env1
     steps:
       - run: echo "hi!!!""
-  run-action-test:
+  run-action-test-2:
     if: ${{ always() }}
     needs: get-env-permission
     runs-on: ubuntu-latest
