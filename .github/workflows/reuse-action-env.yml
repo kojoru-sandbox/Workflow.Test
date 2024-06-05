@@ -17,9 +17,22 @@ jobs:
     environment: env1
     steps:
       - run: echo "hi!!!"
-  run-action-test-2:
-    if: ${{ always() }}
+  create-empty-commit:
+    if: ${{ github.actor == 'dependabot[bot]' }}
     needs: get-env-permission
+    permissions: 
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Create Empty Commit
+        run: git commit --allow-empty -m "Unlock secrets" && git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  run-action-test-2:
+    if: ${{ github.actor != 'dependabot[bot]' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
