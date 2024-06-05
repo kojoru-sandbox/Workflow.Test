@@ -28,7 +28,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Create Empty Commit
-        run: git commit --allow-empty -m "Unlock secrets" && git push
+        run: >
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" 
+          commit --allow-empty -m "Unlock secrets for dependabot" 
+          --author="${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>" && git push origin
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   run-action-test-2:
